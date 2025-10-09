@@ -5,10 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Team Data Viewer</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <!-- Load Tailwind CSS for fast, responsive styling -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Link external stylesheet (styles.css) -->
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body class="p-4 md:p-8">
@@ -21,14 +19,20 @@
       </div>
     </div>
 
-    <!-- Correctly link the JavaScript file here, preferably at the end of body -->
     <div class="max-w-6xl mx-auto">
       <h1 class="text-4xl font-extrabold mb-2">Teams</h1>
       <p class="text-gray-600 mb-8">
         A list of all of the current Orion Drift Pickleball Teams.
       </p>
 
-      <!-- Loading and error messages will be displayed here -->
+      <div class="mb-8">
+        <input
+          type="text"
+          id="team-search"
+          placeholder="Search for a team by name or player tag..."
+          class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-150"
+          aria-label="Search Teams" style="color: black;"/>
+      </div>
       <div
         id="message-box"
         class="flex items-center justify-center bg-white p-6 rounded-lg shadow-inner text-gray-500 text-lg mb-8">
@@ -52,13 +56,10 @@
         <span id="message-text">Loading team data...</span>
       </div>
 
-      <!-- The container where the dynamic team cards will be placed -->
       <div
         id="teams-container"
         class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
-        aria-live="polite">
-        <!-- Team cards will be injected here by JavaScript -->
-      </div>
+        aria-live="polite"></div>
     </div>
     <nav class="bottom-navbar">
       <a href="index.html" class="nav-item">
@@ -80,7 +81,6 @@
         </div>
       </a>
     </nav>
-    <!-- Firebase SDK Imports (Modular V9+) -->
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
       import {
@@ -110,6 +110,11 @@
       const teamsContainer = document.getElementById("teams-container");
       const messageBox = document.getElementById("message-box");
       const messageText = document.getElementById("message-text");
+      // --- ADDED: Reference to the new search input ---
+      const searchInput = document.getElementById("team-search");
+
+      // --- ADDED: Global variable to hold all team data for filtering ---
+      let allTeamsData = {};
 
       // Utility: safely create a badge element with provided text and classes
       function createBadge(text, baseClasses) {
@@ -126,6 +131,11 @@
         const container = document.createElement("div");
         container.className =
           "team-card bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 border-t-4 border-indigo-500";
+        // --- ADDED: Data attributes for easier search filtering ---
+        container.dataset.teamKey = key.toLowerCase();
+        container.dataset.owner = (ownerTag || "").toLowerCase();
+        container.dataset.teammate = (teammateTag || "").toLowerCase();
+        container.dataset.sub = (subTag || "").toLowerCase();
 
         // Header (emoji + team key)
         const header = document.createElement("div");
@@ -206,6 +216,54 @@
         return container;
       }
 
+      // --- ADDED: Function to render teams based on the current search filter ---
+      function renderTeams(teamsObject, filter = "") {
+        teamsContainer.innerHTML = "";
+        const lowerCaseFilter = filter.toLowerCase().trim();
+        let teamsFound = 0;
+
+        // Iterate and filter
+        Object.keys(teamsObject).forEach((teamKey) => {
+          const teamData = teamsObject[teamKey] || {};
+
+          // Search logic: check key, owner, teammate, or sub
+          const matchesKey = teamKey.toLowerCase().includes(lowerCaseFilter);
+          const matchesOwner = (teamData.ownerTag || "")
+            .toLowerCase()
+            .includes(lowerCaseFilter);
+          const matchesTeammate = (teamData.teammateTag || "")
+            .toLowerCase()
+            .includes(lowerCaseFilter);
+          const matchesSub = (teamData.subTag || "")
+            .toLowerCase()
+            .includes(lowerCaseFilter);
+
+          if (
+            !lowerCaseFilter ||
+            matchesKey ||
+            matchesOwner ||
+            matchesTeammate ||
+            matchesSub
+          ) {
+            const cardEl = createTeamCardElement(teamKey, teamData);
+            teamsContainer.appendChild(cardEl);
+            teamsFound++;
+          }
+        });
+
+        // Handle message box visibility based on filter and results
+        if (!lowerCaseFilter && teamsFound === 0) {
+          showMessage("No teams found in the database.", "warning");
+        } else if (lowerCaseFilter && teamsFound === 0) {
+          showMessage(
+            `No teams match the search criteria: "${filter}"`,
+            "warning"
+          );
+        } else {
+          hideMessage();
+        }
+      }
+
       // Show a message in messageBox with optional styles
       function showMessage(text, type = "info") {
         messageBox.classList.remove("hidden");
@@ -238,26 +296,15 @@
       onValue(
         teamsRef,
         (snapshot) => {
-          teamsContainer.innerHTML = ""; // clear previous cards
-
           if (!snapshot.exists()) {
+            allTeamsData = {};
             showMessage("No teams found in the database.", "warning");
             return;
           }
 
-          hideMessage();
-          const teamsObject = snapshot.val();
-
-          // If teamsObject is an array or object, iterate keys
-          const keys = Array.isArray(teamsObject)
-            ? teamsObject.keys?.() ?? Object.keys(teamsObject)
-            : Object.keys(teamsObject);
-          // Append each card element
-          Object.keys(teamsObject).forEach((teamKey) => {
-            const teamData = teamsObject[teamKey] || {};
-            const cardEl = createTeamCardElement(teamKey, teamData);
-            teamsContainer.appendChild(cardEl);
-          });
+          allTeamsData = snapshot.val(); // Save all data globally
+          // Render teams based on the current search value
+          renderTeams(allTeamsData, searchInput.value);
         },
         (error) => {
           console.error("Firebase read error:", error);
@@ -269,6 +316,11 @@
           );
         }
       );
+
+      // --- ADDED: Event listener for the search bar ---
+      searchInput.addEventListener("input", (e) => {
+        renderTeams(allTeamsData, e.target.value);
+      });
     </script>
     <script src="index.js"></script>
   </body>
