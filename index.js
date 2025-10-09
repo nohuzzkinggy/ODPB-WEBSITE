@@ -1,7 +1,8 @@
 // Wait for the document to be fully loaded using jQuery's ready function
 $(document).ready(function() {
     
-    
+    const $cursor = $('#cursor');
+
     // 1. Custom Cursor Movement Logic (jQuery)
     $(window).mousemove(function (e) {
         // Update the position of the cursor elements.
@@ -12,16 +13,26 @@ $(document).ready(function() {
         );
     });
 
-    // 2. Interactive Element Hover Effect
-    // When the mouse enters an interactive element (links, buttons, inputs),
+    // 2. Interactive Element Hover Effect (The "Cool Circle Follow Effect")
+    // When the mouse enters an interactive element (links, buttons, but NOT the search bar),
     // we scale the custom cursor up to provide visual feedback.
-    // NOTE: We exclude '.navbar__link' because the navbar has its own strong visual hover effect (the gooey indicator).
-    $(document).on('mouseenter', 'a:not(.navbar__link), button, input', function() {
-        $('#cursor').css('transform', 'scale(1.5)');
+    $(document).on('mouseenter', 'a:not(.navbar__link), button, input:not(#team-search)', function() {
+        $cursor.css('transform', 'scale(1.5)');
     });
 
     // When the mouse leaves, we return the cursor to its normal size.
-    $(document).on('mouseleave', 'a:not(.navbar__link), button, input', function() {
-        $('#cursor').css('transform', 'scale(1)');
+    $(document).on('mouseleave', 'a:not(.navbar__link), button, input:not(#team-search)', function() {
+        $cursor.css('transform', 'scale(1)');
+    });
+
+    // 3. Specific Handling for the Search Input (#team-search)
+    // When entering the input, hide the custom cursor completely.
+    $('#team-search').on('mouseenter', function() {
+        $cursor.hide();
+    });
+
+    // When leaving the input, show the custom cursor again.
+    $('#team-search').on('mouseleave', function() {
+        $cursor.show();
     });
 });
