@@ -29,19 +29,23 @@ body {
   margin: 0;
   font-family: var(--sans);
   color: var(--text);
+
+  /* New property: This color shows beneath the image */
+  background-color: #080000; 
+
   background-image: url("assets/2025-10-09\ 14-37-59.gif");
   background-position: center;
   background-repeat: no-repeat;
-  /* Key changes for full-page, fixed background */
   background-size: cover;
-  background-attachment: fixed; /* Ensures the image doesn't move when content scrolls */
-  min-height: 100vh; /* Ensures the background covers the full viewport height initially */
-
+  background-attachment: fixed;
+  min-height: 100vh;
+  
+  /* ... rest of your styles ... */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.45;
   font-size: 16px;
-  padding: 24px; /* Note: The padding might slightly push the background outside the viewport if content is short. */
+  padding: 24px;
   font-family: Orbitron;
   cursor: none;
 }
