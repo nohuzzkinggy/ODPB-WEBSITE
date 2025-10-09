@@ -32,6 +32,8 @@ body {
   background-image: url("assets/2025-10-09\ 14-37-59.gif");
   background-position: center;
   background-repeat: no-repeat;
+  /* Add this line to make the image cover the entire background */
+  background-size: cover;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.45;
