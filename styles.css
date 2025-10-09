@@ -1,0 +1,456 @@
+:root {
+  --bg: #8c94ad;
+  --card: #ffffff;
+  --muted: #6b7280;
+  --text: #ffffff;
+  --accent: #2563eb;
+  --accent-2: #06b6d4;
+  --radius: 10px;
+  --shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
+  --max-width: 1100px;
+  --gap: 1.25rem;
+  --transition: 200ms ease;
+  --monospace: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono",
+    "Courier New", monospace;
+  --sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial;
+  font-family: "Orbitron";
+}
+
+/* Reset / base */
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: var(--sans);
+  color: var(--text);
+  background-image: url("assets/2025-10-09\ 14-37-59.gif");
+  background-position: center;
+  background-repeat: no-repeat;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.45;
+  font-size: 16px;
+  padding: 24px;
+  font-family: Orbitron;
+  cursor: none;
+}
+
+/* Layout container */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Top header */
+.header {
+  display: flex;
+  gap: var(--gap);
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  font-family: "Orbitron";
+}
+.brand {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  text-decoration: none;
+  color: var(--text);
+  font-family: "Orbitron";
+}
+.brand-logo {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  box-shadow: var(--shadow);
+}
+.site-title {
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+
+/* Nav */
+.nav {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.nav a {
+  color: var(--muted);
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: all var(--transition);
+  font-weight: 500;
+}
+.nav a:hover {
+  color: var(--text);
+  background: rgba(15, 23, 42, 0.04);
+}
+
+/* Hero */
+.hero {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  padding: 20px;
+  background: linear-gradient(180deg, rgba(37, 99, 235, 0.06), transparent);
+  border-radius: var(--radius);
+}
+.hero-left {
+  flex: 1;
+}
+.hero h1 {
+  margin: 0;
+  font-size: 1.6rem;
+  line-height: 1.1;
+}
+.hero p {
+  margin: 8px 0 0;
+  color: var(--muted);
+}
+
+/* Cards and grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 18px;
+  transition: transform var(--transition), box-shadow var(--transition);
+  border: 1px solid rgba(15, 23, 42, 0.03);
+}
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+}
+.card-title {
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.card-sub {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  border: 0;
+  font-weight: 600;
+  transition: all var(--transition);
+  text-decoration: none;
+}
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.16);
+}
+.btn-primary:hover {
+  transform: translateY(-3px);
+  filter: brightness(1.03);
+}
+.btn-ghost {
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid rgba(37, 99, 235, 0.12);
+}
+
+/* Forms */
+/* Fixed: include native input elements along with .input class and textarea */
+input,
+textarea,
+.input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  background: #fff;
+  color: var(--text);
+  font-size: 0.95rem;
+  transition: box-shadow var(--transition), border-color var(--transition);
+}
+input:focus,
+textarea:focus,
+.input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 6px 18px rgba(37, 99, 235, 0.08);
+}
+
+/* Utilities */
+.kv {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.muted {
+  color: var(--muted);
+}
+.small {
+  font-size: 0.9rem;
+}
+.center {
+  text-align: center;
+}
+
+/* Footer */
+.footer {
+  margin-top: 48px;
+  padding: 18px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+/* Code blocks */
+pre,
+code {
+  font-family: var(--monospace);
+  background: #0f172a;
+  color: #e6eef8;
+  padding: 8px 12px;
+  border-radius: 8px;
+  overflow: auto;
+  font-size: 0.9rem;
+}
+
+/* Responsive tweaks */
+@media (max-width: 720px) {
+  .hero {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  body {
+    padding: 16px;
+  }
+}
+
+/* Small utility helpers */
+.hidden {
+  display: none !important;
+}
+.row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+@font-face {
+  font-family: "Orbitron";
+  src: url("fonts/magistral-bold.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 2.5rem; /* 40px */
+  height: 2.5rem; /* 40px */
+  z-index: 9999;
+  /*pointer-events: none; /* Allows clicks to pass through */
+  
+  /* 🛠️ ADDED: This centers the cursor on the mouse point. */
+  /* This transform will be stacked with the JS position/scale transforms */
+  transform: translate(-50%, -50%); 
+  
+  /* 🪄 THE MAGIC TRICK */
+  mix-blend-mode: difference;
+
+  border-radius: 0px;
+}
+
+.cursor div {
+  position: absolute;
+  display: grid;
+  place-items: center;
+}
+
+/* Styling for the pulsing outer ring */
+.cursor div div {
+  /* Set the border color to a solid, contrasting color (e.g., pure white) */
+  border: 1px solid #fff; 
+  border-radius: 50%;
+  animation: pulse 2.5s linear infinite;
+  /* You can keep or adjust the box-shadow, but it should probably be a color like white too for consistency */
+  box-shadow: 0 0 50px 5px rgba(255, 255, 255, 0.2); 
+}
+
+/* Ensure both ring containers fill the cursor size (No change here) */
+.cursor div:nth-child(1),
+.cursor div:nth-child(2) {
+  width: 100%;
+  height: 100%;
+}
+
+/* Transition for the outer ring (slower to lag slightly behind) (No change here) */
+.cursor div:nth-child(1) {
+  transition: transform 0.2s ease-out;
+}
+
+/* Transition for the inner dot (faster to track the mouse closely) (No change here) */
+.cursor div:nth-child(2) {
+  transition: transform 0.1s ease-out;
+}
+
+/* Specific styles for the inner dot */
+.cursor div:nth-child(2) div {
+  /* Set the background to a solid, contrasting color (e.g., pure white) */
+  background: #fff;
+  border-radius: 50%;
+  width: 4px;
+  height: 4px;
+  border: none;
+  animation: none;
+  box-shadow: none;
+}
+
+/* -------------------------------------- */
+/* Keyframes                              */
+/* -------------------------------------- */
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.25);
+    opacity: 0.25;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+
+/* Navbar styles */
+.bottom-navbar {
+    position: fixed;
+    bottom: 10px; 
+    
+    left: 50%; 
+    transform: translateX(-50%); 
+    
+    max-width: 400px; 
+    width: calc(100% - 20px); 
+    border-radius: 25px; 
+    
+    height: 55px; /* Fixed height for the container */
+    
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    background-color: #ffffff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15); 
+    
+    z-index: 1000;
+}
+
+/* 3. Individual Navigation Item Styling */
+.nav-item {
+    /* Use Flexbox here to ensure contents are centered inside the pill background */
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    
+    flex-grow: 1; 
+    text-decoration: none; 
+    color: #888888; 
+    
+    /* NEW: Setting a dynamic inner height */
+    height: 40px; /* Define the height for the pill background */
+    margin: 0 5px; /* Add horizontal margin to separate pills slightly */
+    
+    transition: color 0.2s, background-color 0.3s; 
+    border-radius: 20px; /* Radius for the pill shape */
+}
+
+/* 4. Content Wrapper inside the Item */
+.nav-content {
+    /* This element holds the icon and text and controls their layout */
+    display: flex;
+    flex-direction: row; /* Display icon and text side-by-side */
+    align-items: center;
+    
+    /* NEW: Add horizontal padding to the content wrapper to space things out */
+    padding: 0 10px; 
+}
+
+/* 5. Icon Styling */
+.nav-item i {
+    font-size: 1.1rem; /* Slightly smaller icon to match side-by-side layout */
+    margin-right: 6px; /* Space between icon and text */
+    transition: transform 0.2s ease-out; 
+}
+
+/* 6. Text Styling */
+.nav-text {
+    font-size: 0.9rem; /* Slightly larger text now that it's next to the icon */
+    font-weight: 500;
+}
+
+/* ---------------------------------------------------- */
+/* FINAL ENHANCED HOVER & ACTIVE STATES (Pill Background) */
+/* ---------------------------------------------------- */
+
+/* Active State: Full-height, Pill-shaped background */
+.nav-item.active {
+    color: #007bff; /* Primary Blue color for active content */
+    background-color: #e9f5ff; /* Light Blue background fills the pill area */
+}
+
+/* On Hover: Subtle Background and Icon Scale */
+.nav-item:hover {
+    color: #0056b3; /* Darker blue on hover */
+    background-color: #f5f5f5; /* Light gray background */
+}
+
+/* Hover/Active Content Effects */
+.nav-item:hover i,
+.nav-item.active i {
+    /* Only minor visual feedback, don't scale too much to keep layout stable */
+    transform: scale(1.05); 
+}
+
+.nav-item.active .nav-text {
+    font-weight: 700; /* Text is much bolder in active state */
+}

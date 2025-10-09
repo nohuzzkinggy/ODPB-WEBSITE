@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Orion Drift Pickleball Community</title>
+    <!-- Load jQuery for cursor movement -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- Load Feather Icons for the Navbar -->
+    <script src="https://unpkg.com/feather-icons"></script>
+    <!-- Correctly link the CSS file -->
+     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Custom Cursor HTML Structure -->
+    <div id="cursor" class="cursor">
+      <div class="ringnotbroken">
+        <div><!-- Pulsing border element --></div>
+      </div>
+      <div class="ringnotbroken">
+        <div><!-- Fixed pointer element --></div>
+      </div>
+    </div>
+    <nav class="bottom-navbar">
+      <a href="#" class="nav-item active">
+        <div class="nav-content">
+          <i class="fas fa-home"></i>
+          <span class="nav-text">Home</span>
+        </div>
+      </a>
+      <a href="teams.html" class="nav-item">
+        <div class="nav-content">
+          <i class="fas fa-users"></i>
+          <span class="nav-text">Teams</span>
+        </div>
+      </a>
+      <a href="rules.html" class="nav-item">
+        <div class="nav-content">
+          <i class="fas fa-scroll"></i>
+          <span class="nav-text">Rules</span>
+        </div>
+      </a>
+    </nav>
+    <div class="max-w-4xl mx-auto py-20 text-center">
+    <h1 class="text-6xl md:text-8xl font-extrabold text-indigo-700 leading-tight mb-4">
+        Orion Drift Pickleball
+    </h1>
+
+    <p class="text-xl font-extrabold text-blue-700 leading-tight mb-4">
+        Your Hub for everything Pickleball.
+    </p>
+</div>
+    <!-- Correctly link the JavaScript file here, preferably at the end of body -->
+    <script src="index.js"></script>
+  </body>
+</html>
